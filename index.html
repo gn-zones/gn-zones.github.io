@@ -201,7 +201,9 @@
   <section id="game-container">
     <div class="controls">
       <button onclick="closeGame()">Close</button>
-      <button onclick="fullscreenGame()">Fullscreen</button>
+      <button onclick="fullscreenGame()">Fullscreen v2</button>
+      <button onclick="fullscreenZone()">Fullscreen v1</button>
+      <button onclick="aboutBlank()">About:Blank</button>
     </div>
     <iframe id="game-frame" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
   </section>
@@ -279,6 +281,30 @@
         gameGrid.innerHTML = "No zones found.";
         return;
       }
+
+        function fullscreenZone() {
+            if (zoneFrame.requestFullscreen) {
+                zoneFrame.requestFullscreen();
+            } else if (zoneFrame.mozRequestFullScreen) {
+                zoneFrame.mozRequestFullScreen();
+            } else if (zoneFrame.webkitRequestFullscreen) {
+                zoneFrame.webkitRequestFullscreen();
+            } else if (zoneFrame.msRequestFullscreen) {
+                zoneFrame.msRequestFullscreen();
+            }
+        }
+
+        function aboutBlank() {
+            const newWindow = window.open("about:blank", "_blank");
+            let zone = zones.find(zone => zone.id + '' === document.getElementById('zoneId').textContent).url.replace("{COVER_URL}", coverURL).replace("{HTML_URL}", htmlURL);
+            fetch(zone+"?t="+Date.now()).then(response => response.text()).then(html => {
+                if (newWindow) {
+                    newWindow.document.open();
+                    newWindow.document.write(html);
+                    newWindow.document.close();
+                }
+            })
+        }
 
       zones.forEach((file) => {
         if (file.url && file.url.includes("{HTML_URL}")) {
