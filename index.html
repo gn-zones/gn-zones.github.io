@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cool Math Game Site</title>
+  <title>Cool Math Game Site (beta)</title>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
     body {
@@ -85,7 +85,7 @@
 </head>
 <body>
   <header>
-    <h1>Cool Math Game Central</h1>
+    <h1>Cool Math Game Central (beta)</h1>
   </header>
 
   <section class="game-grid" id="game-grid"></section>
@@ -107,8 +107,8 @@
         games.forEach(game => {
           const card = document.createElement('div');
           card.className = 'game-card';
-          card.innerHTML = `<h2>${game.name}</h2>`;
-          card.onclick = () => loadGame(`https://cdn.jsdelivr.net/gh/gn-math/html@main${game.path}`);
+          card.innerHTML = `<h2>${zone.name}</h2>`;
+          card.onclick = () => loadGame(`https://cdn.jsdelivr.net/gh/gn-math/html@main${zone.path}`);
 
           gameGrid.appendChild(card);
         });
