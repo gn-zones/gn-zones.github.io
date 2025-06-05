@@ -59,7 +59,7 @@
 
     .game-card button {
       font-family: 'Press Start 2P', cursive;
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       background: none;
       color: #00ffc3;
       border: none;
@@ -73,6 +73,10 @@
       display: none;
       padding: 1rem;
       animation: fadeIn 0.5s ease-in;
+    }
+
+    #game-container.fadeOut {
+      animation: appleFadeOut 0.4s ease-in forwards;
     }
 
     iframe {
@@ -96,11 +100,12 @@
       padding: 0.3rem 1rem;
       margin: 0 0.5rem;
       cursor: pointer;
-      transition: transform 0.2s ease;
+      transition: transform 0.2s ease, background-color 0.2s ease;
     }
 
     .controls button:hover {
       transform: scale(1.1);
+      background-color: #2a2a3a;
     }
 
     footer {
@@ -113,6 +118,16 @@
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
+    }
+
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+
+    @keyframes appleFadeOut {
+      0% { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(0.95) translateY(20px); }
     }
 
     @keyframes slideDown {
@@ -209,6 +224,7 @@
           const blob = new Blob([html], { type: "text/html" });
           const blobUrl = URL.createObjectURL(blob);
           gameFrame.src = blobUrl;
+          gameContainer.classList.remove("fadeOut");
           gameContainer.style.display = "block";
           window.scrollTo({ top: gameContainer.offsetTop, behavior: "smooth" });
         })
@@ -219,8 +235,12 @@
     }
 
     function closeGame() {
-      gameFrame.src = "";
-      gameContainer.style.display = "none";
+      gameContainer.classList.add("fadeOut");
+      setTimeout(() => {
+        gameFrame.src = "";
+        gameContainer.style.display = "none";
+        gameContainer.classList.remove("fadeOut");
+      }, 400);
     }
 
     function fullscreenGame() {
@@ -230,7 +250,7 @@
         .then(html => {
           const blob = new Blob([html], { type: "text/html" });
           const blobUrl = URL.createObjectURL(blob);
-          const win = window.open(blobUrl, "_blank");
+          window.open(blobUrl, "_blank");
         })
         .catch(err => {
           console.error("Failed to open fullscreen game:", err);
