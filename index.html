@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cool Math Game Site (beta)</title>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/gn-math/assets@main/favicon.png" type="image/png">
   <style>
     body {
       margin: 0;
@@ -124,6 +125,26 @@
       color: #00ffc3;
     }
 
+    .return-button {
+      display: inline-block;
+      margin: 0.5rem;
+      font-size: 0.6rem;
+      background: #1a1a2a;
+      color: #00ffc3;
+      border: 1px solid #00ffc3;
+      border-radius: 10px;
+      padding: 0.4rem 1rem;
+      cursor: pointer;
+      font-family: 'Press Start 2P', cursive;
+      text-decoration: none;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .return-button:hover {
+      transform: scale(1.05);
+      background-color: #2a2a3a;
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
@@ -162,7 +183,7 @@
       <button onclick="closeGame()">Close</button>
       <button onclick="fullscreenGame()">Fullscreen</button>
     </div>
-    <iframe id="game-frame"></iframe>
+    <iframe id="game-frame" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
   </section>
 
   <footer>
