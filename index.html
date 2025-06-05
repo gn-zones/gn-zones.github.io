@@ -60,16 +60,12 @@
     }
 
     .game-card img {
-      width: 80px;
-      height: 80px;
-      object-fit: contain;
-      border-radius: 10px;
-      margin-bottom: 0.5rem;
+      display: none;
     }
 
     .game-card button {
       font-family: 'Press Start 2P', cursive;
-      font-size: 0.5rem;
+      font-size: 1rem;
       background: none;
       color: #00ffc3;
       border: none;
@@ -222,19 +218,10 @@
       zones.forEach((file) => {
         if (file.url && file.url.includes("{HTML_URL}")) {
           const actualUrl = file.url.replace("{HTML_URL}", htmlURL);
-          const actualCover = file.cover
-            ? file.cover.replace("{COVER_URL}", coverURL)
-            : defaultCover;
 
           const zoneItem = document.createElement("div");
           zoneItem.className = "game-card";
           zoneItem.onclick = () => loadGame(actualUrl);
-
-          const img = document.createElement("img");
-          img.src = actualCover;
-          img.alt = file.name;
-          img.onerror = () => { img.src = defaultCover; };
-          zoneItem.appendChild(img);
 
           const button = document.createElement("button");
           button.textContent = file.name;
