@@ -49,7 +49,7 @@
 
     .game-card button {
       font-family: 'Press Start 2P', cursive;
-      font-size: 0.5rem;
+      font-size: 0.4rem;
       background: none;
       color: #00ffc3;
       border: none;
@@ -109,13 +109,14 @@
       zones.forEach((file) => {
         const zoneItem = document.createElement("div");
         zoneItem.className = "game-card";
-        zoneItem.onclick = () => loadGame(`${htmlURL}${file.path}`);
+        const gameUrl = `${htmlURL}/${file.path.replace(/^\/+/,'')}`;
+        zoneItem.onclick = () => loadGame(gameUrl);
 
         const button = document.createElement("button");
         button.textContent = file.name;
         button.onclick = (event) => {
           event.stopPropagation();
-          loadGame(`${htmlURL}${file.path}`);
+          loadGame(gameUrl);
         };
 
         zoneItem.appendChild(button);
