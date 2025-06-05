@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cool Math (beta)</title>
+  <title>Cool Math Game Site (beta)</title>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-  <link rel="icon" href="https://play-lh.googleusercontent.com/ZLC8nrGFe7buJ4UyNbCnhdB-36OYeTTcfdpS6aYnacEDaN12QW2zOWplq4nm4AyEHhY" type="image/png">
+  <link rel="icon" href="https://cdn.jsdelivr.net/gh/gn-math/assets@main/favicon.png" type="image/png">
   <style>
     body {
       margin: 0;
@@ -28,6 +28,21 @@
       font-size: 1.5rem;
       color: #00ffc3;
       text-shadow: 0 0 3px #00ffc3;
+    }
+
+    .search-bar {
+      margin: 1rem;
+    }
+
+    .search-bar input {
+      font-family: 'Press Start 2P', cursive;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: 1px solid #00ffc3;
+      background: #1a1a2a;
+      color: #00ffc3;
+      width: 80%;
     }
 
     .game-grid {
@@ -169,13 +184,17 @@
 </head>
 <body>
   <header>
-    <h1>Cool Math (beta)</h1>
+    <h1>Cool Math Game Central (beta)</h1>
   </header>
 
   <section>
+    <button class="return-button" onclick="window.location.href='https://gn-games.github.io'">gn-games</button>
     <button id="reload-button" class="return-button" onclick="location.reload()">Reload</button>
-    <button class="return-button" onclick="window.location.href='https://gn-games.github.io'">GN-games</button>
   </section>
+
+  <div class="search-bar">
+    <input type="text" id="search" placeholder="Search for a game..." oninput="filterGames()">
+  </div>
 
   <section class="game-grid" id="game-grid"></section>
 
@@ -188,7 +207,7 @@
   </section>
 
   <footer>
-    <p>&copy; 2025 Cool Math</p>
+    <p>&copy; 2025 Cool Math Vibes.</p>
     <p>This site is a fan-made project and is not affiliated with Coolmath Games LLC.</p>
     <p><a href="https://github.com/gn-zones/gn-zones.github.io" target="_blank" class="return-button">View Project on GitHub</a></p>
   </footer>
@@ -197,21 +216,25 @@
     const gameGrid = document.getElementById("game-grid");
     const gameContainer = document.getElementById("game-container");
     const gameFrame = document.getElementById("game-frame");
+    const searchInput = document.getElementById("search");
     const coverURL = "https://cdn.jsdelivr.net/gh/gn-math/assets@main";
     const htmlURL = "https://cdn.jsdelivr.net/gh/gn-math/html@main";
     const defaultCover = `${coverURL}/default.png`;
     let currentGameUrl = "";
+    let allGames = [];
 
     fetch("https://cdn.jsdelivr.net/gh/gn-math/assets@main/zones.json")
       .then((res) => {
         if (!res.ok) throw new Error("Network response was not ok");
         return res.json();
       })
-      .then((zones) => displayZones(zones))
+      .then((zones) => {
+        allGames = zones;
+        displayZones(zones);
+      })
       .catch((err) => {
         console.error("Failed to load game list:", err);
-        gameGrid.innerHTML =
-          '<p style="color: red; text-align: center;">Failed to load games. Please try again later.</p>';
+        gameGrid.innerHTML = '<p style="color: red; text-align: center;">Failed to load games. Please try again later.</p>';
       });
 
     function displayZones(zones) {
@@ -227,12 +250,17 @@
 
           const zoneItem = document.createElement("div");
           zoneItem.className = "game-card";
-          zoneItem.onclick = () => loadGame(actualUrl);
+          zoneItem.onclick = () => {
+            playClickSound();
+            loadGame(actualUrl);
+          };
 
           const button = document.createElement("button");
           button.textContent = file.name;
+          button.title = `Launch ${file.name}`;
           button.onclick = (event) => {
             event.stopPropagation();
+            playClickSound();
             loadGame(actualUrl);
           };
 
@@ -244,6 +272,12 @@
       if (!gameGrid.children.length) {
         gameGrid.innerHTML = "No zones found.";
       }
+    }
+
+    function filterGames() {
+      const query = searchInput.value.toLowerCase();
+      const filtered = allGames.filter(game => game.name.toLowerCase().includes(query));
+      displayZones(filtered);
     }
 
     function loadGame(url) {
@@ -268,11 +302,11 @@
     }
 
     function closeGame() {
-      gameContainer.classList.add("partialFadeOut");
+      gameContainer.classList.add("fadeOut");
       setTimeout(() => {
         gameFrame.src = "";
         gameContainer.style.display = "none";
-        gameContainer.classList.remove("partialFadeOut");
+        gameContainer.classList.remove("fadeOut");
       }, 400);
     }
 
@@ -289,6 +323,11 @@
           console.error("Failed to open fullscreen game:", err);
           alert("Could not open fullscreen.");
         });
+    }
+
+    function playClickSound() {
+      const click = new Audio("https://cdn.jsdelivr.net/gh/gn-math/assets@main/click.wav");
+      click.play();
     }
   </script>
 </body>
