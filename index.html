@@ -9,77 +9,74 @@
     body {
       margin: 0;
       font-family: 'Press Start 2P', cursive;
-      background: linear-gradient(270deg, #0f0c29, #302b63, #24243e);
-      background-size: 600% 600%;
-      animation: gradientFlow 20s ease infinite;
-      color: #fff;
+      background: #0f0f1f;
+      color: #00ffc3;
       text-align: center;
     }
 
-    @keyframes gradientFlow {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
     header {
-      padding: 2rem 1rem;
-      background-color: rgba(0, 0, 0, 0.7);
-      box-shadow: 0 0 10px #00ffcc;
+      padding: 1rem;
+      background-color: #1a1a2a;
+      box-shadow: 0 0 10px #00ffc3;
     }
 
     h1 {
       margin: 0;
-      font-size: 1.5rem;
-      color: #00ffcc;
-      text-shadow: 0 0 5px #00ffcc;
+      font-size: 1rem;
+      color: #00ffc3;
+      text-shadow: 0 0 3px #00ffc3;
     }
 
     .game-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
       gap: 1rem;
-      padding: 2rem;
+      padding: 1rem;
     }
 
     .game-card {
-      position: relative;
-      background: rgba(0, 0, 0, 0.6);
+      background: #1e1e2e;
       padding: 1rem;
-      border-radius: 10px;
-      border: 2px solid #00ffcc;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-radius: 30px;
+      transition: transform 0.2s ease, background-color 0.3s ease;
       cursor: pointer;
-      overflow: hidden;
-    }
-
-    .game-card h2 {
-      font-size: 0.6rem;
-      margin: 0;
-      background-color: rgba(0, 0, 0, 0.6);
-      display: inline-block;
-      padding: 2px 4px;
-      border-radius: 4px;
-      position: relative;
-      z-index: 1;
     }
 
     .game-card:hover {
       transform: scale(1.05);
-      box-shadow: 0 0 20px #00ffcc;
+      background-color: #2a2a3a;
+    }
+
+    .game-card button {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 0.5rem;
+      background: none;
+      color: #00ffc3;
+      border: none;
+      padding: 0.4rem;
+      margin-top: 0.5rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    .game-card button:hover {
+      background-color: #00ffc3;
+      color: #000;
     }
 
     iframe {
       width: 100%;
       height: 80vh;
-      border: 4px solid #00ffcc;
-      border-radius: 10px;
+      border: none;
+      border-radius: 20px;
     }
 
     footer {
       padding: 1rem;
-      font-size: 0.8rem;
-      background-color: rgba(0, 0, 0, 0.6);
+      font-size: 0.6rem;
+      background-color: #1a1a2a;
+      color: #00ffc3;
     }
   </style>
 </head>
@@ -90,40 +87,57 @@
 
   <section class="game-grid" id="game-grid"></section>
 
-  <section id="game-container" style="padding: 2rem; display: none;">
+  <section id="game-container" style="padding: 1rem; display: none;">
     <iframe id="game-frame"></iframe>
   </section>
 
   <footer>
-    <p>Copyright &copy; 2025 Cool Math Vibes. No homework, just high scores.</p>
+    <p>Copyright &copy; 2025 Cool Math Vibes.</p>
   </footer>
 
   <script>
-    const gameGrid = document.getElementById('game-grid');
+    const gameGrid = document.getElementById("game-grid");
+    const coverURL = "https://cdn.jsdelivr.net/gh/gn-math/assets@main";
+    const htmlURL = "https://cdn.jsdelivr.net/gh/gn-math/html@main";
 
-    fetch('https://cdn.jsdelivr.net/gh/gn-math/assets@main/zones.json')
-      .then(res => res.json())
-      .then(zones => {
-        zones.forEach(zone => {
-          const card = document.createElement('div');
-          card.className = 'game-card';
-          card.innerHTML = `<h2>${zone.name}</h2>`;
-          card.onclick = () => loadGame(`https://cdn.jsdelivr.net/gh/gn-math/html@main${zone.path}`);
-
-          gameGrid.appendChild(card);
-        });
-      })
-      .catch(err => {
-        console.error('Failed to load game list:', err);
-        gameGrid.innerHTML = '<p style="color: red; text-align: center;">Failed to load games. Please try again later.</p>';
+    fetch("https://cdn.jsdelivr.net/gh/gn-math/assets@main/zones.json")
+      .then((res) => res.json())
+      .then((zones) => displayZones(zones))
+      .catch((err) => {
+        console.error("Failed to load game list:", err);
+        gameGrid.innerHTML =
+          '<p style="color: red; text-align: center;">Failed to load games. Please try again later.</p>';
       });
 
+    function displayZones(zones) {
+      gameGrid.innerHTML = "";
+      zones.forEach((file) => {
+        const zoneItem = document.createElement("div");
+        zoneItem.className = "game-card";
+        zoneItem.onclick = () => loadGame(`${htmlURL}${file.path}`);
+
+        const button = document.createElement("button");
+        button.textContent = file.name;
+        button.onclick = (event) => {
+          event.stopPropagation();
+          loadGame(`${htmlURL}${file.path}`);
+        };
+
+        zoneItem.appendChild(button);
+        gameGrid.appendChild(zoneItem);
+      });
+
+      if (gameGrid.innerHTML === "") {
+        gameGrid.innerHTML = "No zones found.";
+      }
+    }
+
     function loadGame(url) {
-      const container = document.getElementById('game-container');
-      const iframe = document.getElementById('game-frame');
+      const container = document.getElementById("game-container");
+      const iframe = document.getElementById("game-frame");
       iframe.src = url;
-      container.style.display = 'block';
-      window.scrollTo({ top: container.offsetTop, behavior: 'smooth' });
+      container.style.display = "block";
+      window.scrollTo({ top: container.offsetTop, behavior: "smooth" });
     }
   </script>
 </body>
