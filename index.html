@@ -268,11 +268,11 @@
     }
 
     function closeGame() {
-      gameContainer.classList.add("fadeOut");
+      gameContainer.classList.add("partialFadeOut");
       setTimeout(() => {
         gameFrame.src = "";
         gameContainer.style.display = "none";
-        gameContainer.classList.remove("fadeOut");
+        gameContainer.classList.remove("partialFadeOut");
       }, 400);
     }
 
