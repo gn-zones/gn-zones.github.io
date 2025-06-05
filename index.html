@@ -12,12 +12,14 @@
       background: #0f0f1f;
       color: #00ffc3;
       text-align: center;
+      animation: fadeIn 1s ease-in;
     }
 
     header {
       padding: 1rem;
       background-color: #1a1a2a;
       box-shadow: 0 0 10px #00ffc3;
+      animation: slideDown 1s ease-out;
     }
 
     h1 {
@@ -28,31 +30,36 @@
     }
 
     .game-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 1rem;
       padding: 1rem;
     }
 
     .game-card {
+      flex: 0 1 calc(20% - 1rem);
       background: #1e1e2e;
       padding: 1rem;
       border-radius: 30px;
-      transition: transform 0.2s ease, background-color 0.3s ease;
+      transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
+      height: 140px;
+      animation: popIn 0.4s ease;
     }
 
     .game-card:hover {
-      transform: scale(1.05);
+      transform: scale(1.08);
       background-color: #2a2a3a;
+      box-shadow: 0 0 15px #00ffc3;
     }
 
     .game-card button {
       font-family: 'Press Start 2P', cursive;
-      font-size: 0.3rem;
+      font-size: 0.9rem;
       background: none;
       color: #00ffc3;
       border: none;
@@ -62,6 +69,12 @@
       transition: background-color 0.2s, color 0.2s;
     }
 
+    #game-container {
+      display: none;
+      padding: 1rem;
+      animation: fadeIn 0.5s ease-in;
+    }
+
     iframe {
       width: 100%;
       height: 80vh;
@@ -69,11 +82,47 @@
       border-radius: 20px;
     }
 
+    .controls {
+      margin: 0.5rem 0;
+    }
+
+    .controls button {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 0.6rem;
+      background: #1a1a2a;
+      color: #00ffc3;
+      border: 1px solid #00ffc3;
+      border-radius: 10px;
+      padding: 0.3rem 1rem;
+      margin: 0 0.5rem;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .controls button:hover {
+      transform: scale(1.1);
+    }
+
     footer {
       padding: 1rem;
       font-size: 0.6rem;
       background-color: #1a1a2a;
       color: #00ffc3;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
   </style>
 </head>
@@ -84,7 +133,11 @@
 
   <section class="game-grid" id="game-grid"></section>
 
-  <section id="game-container" style="padding: 1rem; display: none;">
+  <section id="game-container">
+    <div class="controls">
+      <button onclick="closeGame()">Close</button>
+      <button onclick="fullscreenGame()">Fullscreen</button>
+    </div>
     <iframe id="game-frame"></iframe>
   </section>
 
@@ -94,8 +147,11 @@
 
   <script>
     const gameGrid = document.getElementById("game-grid");
+    const gameContainer = document.getElementById("game-container");
+    const gameFrame = document.getElementById("game-frame");
     const coverURL = "https://cdn.jsdelivr.net/gh/gn-math/assets@main";
     const htmlURL = "https://cdn.jsdelivr.net/gh/gn-math/html@main";
+    let currentGameUrl = "";
 
     fetch("https://cdn.jsdelivr.net/gh/gn-math/assets@main/zones.json")
       .then((res) => {
@@ -120,7 +176,6 @@
         const zoneItem = document.createElement("div");
         zoneItem.className = "game-card";
 
-        // Only add playable cards
         if (file.url && file.url.includes("{HTML_URL}")) {
           const actualUrl = file.url.replace("{HTML_URL}", htmlURL);
 
@@ -144,11 +199,24 @@
     }
 
     function loadGame(url) {
-      const container = document.getElementById("game-container");
-      const iframe = document.getElementById("game-frame");
-      iframe.src = url;
-      container.style.display = "block";
-      window.scrollTo({ top: container.offsetTop, behavior: "smooth" });
+      currentGameUrl = url;
+      gameFrame.src = url;
+      gameContainer.style.display = "block";
+      window.scrollTo({ top: gameContainer.offsetTop, behavior: "smooth" });
+    }
+
+    function closeGame() {
+      gameFrame.src = "";
+      gameContainer.style.display = "none";
+    }
+
+    function fullscreenGame() {
+      if (currentGameUrl) {
+        const win = window.open("", "_blank");
+        const html = `<html><head><title>Fullscreen Game</title><style>body{margin:0}iframe{border:none;width:100vw;height:100vh;}</style></head><body><iframe src="${currentGameUrl}"></iframe></body></html>`;
+        win.document.write(html);
+        win.document.close();
+      }
     }
   </script>
 </body>
