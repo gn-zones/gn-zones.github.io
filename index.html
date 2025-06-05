@@ -196,6 +196,11 @@
     <input type="text" id="search" placeholder="Search for a game..." oninput="filterGames()">
   </div>
 
+  <section>
+          <a href="javascript:saveData()">Save Data</a>
+        <label class="return-button" for="importData">Load Data</label>
+  </section>
+
   <section class="game-grid" id="game-grid"></section>
 
   <section id="game-container">
@@ -279,6 +284,43 @@
       const filtered = allGames.filter(game => game.name.toLowerCase().includes(query));
       displayZones(filtered);
     }
+
+        function saveData() {
+            let data = JSON.stringify(localStorage) + "\n\n|\n\n" + document.cookie;
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(new Blob([data], {
+                type: "text/plain"
+            }));
+            link.download = `${Date.now()}.data`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function loadData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const content = e.target.result;
+                const [localStorageData, cookieData] = content.split("\n\n|\n\n");
+                try {
+                    const parsedData = JSON.parse(localStorageData);
+                    for (let key in parsedData) {
+                        localStorage.setItem(key, parsedData[key]);
+                    }
+                } catch (error) {
+                }
+                if (cookieData) {
+                    const cookies = cookieData.split("; ");
+                    cookies.forEach(cookie => {
+                        document.cookie = cookie;
+                    });
+                }
+                alert("Data loaded");
+            };
+            reader.readAsText(file);
+        }
 
     function loadGame(url) {
       currentGameUrl = url;
