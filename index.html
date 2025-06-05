@@ -103,8 +103,8 @@
 
     fetch('https://cdn.jsdelivr.net/gh/gn-math/assets@main/zones.json')
       .then(res => res.json())
-      .then(games => {
-        games.forEach(game => {
+      .then(zones => {
+        zones.forEach(zone => {
           const card = document.createElement('div');
           card.className = 'game-card';
           card.innerHTML = `<h2>${zone.name}</h2>`;
