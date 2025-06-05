@@ -59,7 +59,7 @@
 
     .game-card button {
       font-family: 'Press Start 2P', cursive;
-      font-size: 0.9rem;
+      font-size: 0.7rem;
       background: none;
       color: #00ffc3;
       border: none;
@@ -200,9 +200,22 @@
 
     function loadGame(url) {
       currentGameUrl = url;
-      gameFrame.src = url;
-      gameContainer.style.display = "block";
-      window.scrollTo({ top: gameContainer.offsetTop, behavior: "smooth" });
+      fetch(url)
+        .then(res => {
+          if (!res.ok) throw new Error("Failed to fetch game HTML.");
+          return res.text();
+        })
+        .then(html => {
+          const blob = new Blob([html], { type: "text/html" });
+          const blobUrl = URL.createObjectURL(blob);
+          gameFrame.src = blobUrl;
+          gameContainer.style.display = "block";
+          window.scrollTo({ top: gameContainer.offsetTop, behavior: "smooth" });
+        })
+        .catch(err => {
+          console.error("Failed to load game content:", err);
+          alert("Could not load game.");
+        });
     }
 
     function closeGame() {
@@ -211,12 +224,18 @@
     }
 
     function fullscreenGame() {
-      if (currentGameUrl) {
-        const win = window.open("", "_blank");
-        const html = `<html><head><title>Fullscreen Game</title><style>body{margin:0}iframe{border:none;width:100vw;height:100vh;}</style></head><body><iframe src="${currentGameUrl}"></iframe></body></html>`;
-        win.document.write(html);
-        win.document.close();
-      }
+      if (!currentGameUrl) return;
+      fetch(currentGameUrl)
+        .then(res => res.text())
+        .then(html => {
+          const blob = new Blob([html], { type: "text/html" });
+          const blobUrl = URL.createObjectURL(blob);
+          const win = window.open(blobUrl, "_blank");
+        })
+        .catch(err => {
+          console.error("Failed to open fullscreen game:", err);
+          alert("Could not open fullscreen.");
+        });
     }
   </script>
 </body>
