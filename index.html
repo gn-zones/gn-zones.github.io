@@ -70,6 +70,14 @@
       animation: fadeIn 2s ease-in;
     }
 
+    iframe {
+      width: 100%;
+      height: 500px;
+      border: none;
+      margin-top: 1rem;
+      border-radius: 8px;
+    }
+
     footer {
       text-align: center;
       padding: 1rem;
@@ -134,26 +142,40 @@
   </header>
 
   <section class="game-grid">
-    <div class="game-card">
+    <div class="game-card" onclick="loadGame('https://cdn.jsdelivr.net/gh/gn-math/games/snake/index.html')">
       <h2>Snake Classic</h2>
       <p>Slither till you're slick. OG vibes only.</p>
     </div>
-    <div class="game-card">
+    <div class="game-card" onclick="loadGame('https://cdn.jsdelivr.net/gh/gn-math/games/tetris/index.html')">
       <h2>Tetris Blitz</h2>
       <p>Stack 'em high or cry tryin'.</p>
     </div>
-    <div class="game-card">
+    <div class="game-card" onclick="loadGame('https://cdn.jsdelivr.net/gh/gn-math/games/pong/index.html')">
       <h2>Pong Duel</h2>
       <p>Old school ping-pong—respect the paddle.</p>
     </div>
-    <div class="game-card">
+    <div class="game-card" onclick="loadGame('https://cdn.jsdelivr.net/gh/gn-math/games/maze/index.html')">
       <h2>Maze Runner</h2>
       <p>Find the way out before the timer runs dry.</p>
     </div>
   </section>
 
+  <section id="game-container" style="padding: 2rem; display: none;">
+    <iframe id="game-frame"></iframe>
+  </section>
+
   <footer>
     <p>Copyright &copy; 2025 Cool Math Vibes. No homework, just high scores.</p>
   </footer>
+
+  <script>
+    function loadGame(url) {
+      const container = document.getElementById('game-container');
+      const iframe = document.getElementById('game-frame');
+      iframe.src = url;
+      container.style.display = 'block';
+      window.scrollTo({ top: container.offsetTop, behavior: 'smooth' });
+    }
+  </script>
 </body>
 </html>
