@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cool Math Game Site (beta)</title>
+  <title>Cool Math (beta)</title>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <link rel="icon" href="https://cdn.jsdelivr.net/gh/gn-math/assets@main/favicon.png" type="image/png">
   <style>
@@ -169,8 +169,12 @@
 </head>
 <body>
   <header>
-    <h1>Cool Math Game Central (beta)</h1>
+    <h1>Cool Math (beta)</h1>
   </header>
+
+  <section>
+    
+  </section>
 
   <section class="game-grid" id="game-grid"></section>
 
@@ -178,6 +182,7 @@
     <div class="controls">
       <button onclick="closeGame()">Close</button>
       <button onclick="fullscreenGame()">Fullscreen</button>
+      <button onclick="location.reload()">Reload</button>
     </div>
     <iframe id="game-frame" sandbox="allow-scripts allow-same-origin allow-forms allow-popups"></iframe>
   </section>
