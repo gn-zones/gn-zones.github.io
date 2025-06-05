@@ -40,6 +40,9 @@
       border-radius: 30px;
       transition: transform 0.2s ease, background-color 0.3s ease;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .game-card:hover {
@@ -49,12 +52,11 @@
 
     .game-card button {
       font-family: 'Press Start 2P', cursive;
-      font-size: 0.4rem;
+      font-size: 0.3rem;
       background: none;
       color: #00ffc3;
       border: none;
       padding: 0.4rem;
-      margin-top: 0.5rem;
       border-radius: 10px;
       cursor: pointer;
       transition: background-color 0.2s, color 0.2s;
@@ -96,7 +98,10 @@
     const htmlURL = "https://cdn.jsdelivr.net/gh/gn-math/html@main";
 
     fetch("https://cdn.jsdelivr.net/gh/gn-math/assets@main/zones.json")
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error("Network response was not ok");
+        return res.json();
+      })
       .then((zones) => displayZones(zones))
       .catch((err) => {
         console.error("Failed to load game list:", err);
@@ -106,24 +111,34 @@
 
     function displayZones(zones) {
       gameGrid.innerHTML = "";
+      if (!Array.isArray(zones)) {
+        gameGrid.innerHTML = "No zones found.";
+        return;
+      }
+
       zones.forEach((file) => {
         const zoneItem = document.createElement("div");
         zoneItem.className = "game-card";
-        const gameUrl = `${htmlURL}/${file.path.replace(/^\/+/,'')}`;
-        zoneItem.onclick = () => loadGame(gameUrl);
 
-        const button = document.createElement("button");
-        button.textContent = file.name;
-        button.onclick = (event) => {
-          event.stopPropagation();
-          loadGame(gameUrl);
-        };
+        // Only add playable cards
+        if (file.url && file.url.includes("{HTML_URL}")) {
+          const actualUrl = file.url.replace("{HTML_URL}", htmlURL);
 
-        zoneItem.appendChild(button);
-        gameGrid.appendChild(zoneItem);
+          zoneItem.onclick = () => loadGame(actualUrl);
+
+          const button = document.createElement("button");
+          button.textContent = file.name;
+          button.onclick = (event) => {
+            event.stopPropagation();
+            loadGame(actualUrl);
+          };
+
+          zoneItem.appendChild(button);
+          gameGrid.appendChild(zoneItem);
+        }
       });
 
-      if (gameGrid.innerHTML === "") {
+      if (!gameGrid.children.length) {
         gameGrid.innerHTML = "No zones found.";
       }
     }
