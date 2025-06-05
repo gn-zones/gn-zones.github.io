@@ -6,133 +6,80 @@
   <title>Cool Math Game Site</title>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
     body {
-      background: linear-gradient(-45deg, #0f0f0f, #1a1a1a, #0f0f0f, #1a1a1a);
-      background-size: 400% 400%;
+      margin: 0;
       font-family: 'Press Start 2P', cursive;
+      background: linear-gradient(270deg, #0f0c29, #302b63, #24243e);
+      background-size: 600% 600%;
+      animation: gradientFlow 20s ease infinite;
       color: #fff;
-      overflow-x: hidden;
-      animation: moveGradient 15s ease infinite;
-    }
-
-    header {
-      padding: 2rem;
       text-align: center;
-      background: #121212;
-      animation: slideDown 1s ease-out, flicker 2s infinite;
     }
 
-    header h1 {
-      font-size: 2rem;
-      color: #00ffcc;
-      animation: glowText 2s infinite alternate;
-    }
-
-    .game-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      padding: 2rem;
-      animation: fadeIn 2s ease;
-    }
-
-    .game-card {
-      background: #222;
-      padding: 1rem;
-      border: 2px solid #00ffcc;
-      border-radius: 12px;
-      transition: transform 0.3s, box-shadow 0.3s;
-      cursor: pointer;
-      animation: floatUp 1s ease-out, hoverBounce 5s infinite;
-    }
-
-    .game-card:hover {
-      transform: translateY(-10px) scale(1.05);
-      box-shadow: 0 8px 20px rgba(0, 255, 204, 0.5);
-    }
-
-    .game-card h2 {
-      font-size: 1rem;
-      color: #ff00ff;
-      margin-bottom: 0.5rem;
-      animation: spinIn 1s ease-out;
-    }
-
-    .game-card p {
-      font-size: 0.75rem;
-      color: #ccc;
-      animation: fadeIn 2s ease-in;
-    }
-
-    iframe {
-      width: 100%;
-      height: 500px;
-      border: none;
-      margin-top: 1rem;
-      border-radius: 8px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 1rem;
-      background: #111;
-      font-size: 0.75rem;
-      animation: slideUp 1s ease-out, flicker 2s infinite;
-    }
-
-    /* ANIMATIONS */
-    @keyframes slideDown {
-      from { transform: translateY(-50px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes floatUp {
-      from { transform: translateY(50px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    @keyframes slideUp {
-      from { transform: translateY(50px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    @keyframes glowText {
-      from { text-shadow: 0 0 5px #00ffcc, 0 0 10px #00ffcc; }
-      to { text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc; }
-    }
-
-    @keyframes moveGradient {
+    @keyframes gradientFlow {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
 
-    @keyframes hoverBounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
+    header {
+      padding: 2rem 1rem;
+      background-color: rgba(0, 0, 0, 0.7);
+      box-shadow: 0 0 10px #00ffcc;
     }
 
-    @keyframes flicker {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.9; }
-      55% { opacity: 0.4; }
-      60% { opacity: 0.95; }
+    h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: #00ffcc;
+      text-shadow: 0 0 5px #00ffcc;
     }
 
-    @keyframes spinIn {
-      from { transform: rotateY(90deg); opacity: 0; }
-      to { transform: rotateY(0); opacity: 1; }
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      padding: 2rem;
+    }
+
+    .game-card {
+      position: relative;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 1rem;
+      border-radius: 10px;
+      border: 2px solid #00ffcc;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .game-card h2 {
+      font-size: 0.6rem;
+      margin: 0;
+      background-color: rgba(0, 0, 0, 0.6);
+      display: inline-block;
+      padding: 2px 4px;
+      border-radius: 4px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .game-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #00ffcc;
+    }
+
+    iframe {
+      width: 100%;
+      height: 80vh;
+      border: 4px solid #00ffcc;
+      border-radius: 10px;
+    }
+
+    footer {
+      padding: 1rem;
+      font-size: 0.8rem;
+      background-color: rgba(0, 0, 0, 0.6);
     }
   </style>
 </head>
@@ -141,24 +88,7 @@
     <h1>Cool Math Game Central</h1>
   </header>
 
-  <section class="game-grid">
-    <div class="game-card" onclick="loadGame('https://cdn.jsdelivr.net/gh/gn-math/games/snake/index.html')">
-      <h2>Snake Classic</h2>
-      <p>Slither till you're slick. OG vibes only.</p>
-    </div>
-    <div class="game-card" onclick="loadGame('https://cdn.jsdelivr.net/gh/gn-math/games/tetris/index.html')">
-      <h2>Tetris Blitz</h2>
-      <p>Stack 'em high or cry tryin'.</p>
-    </div>
-    <div class="game-card" onclick="loadGame('https://cdn.jsdelivr.net/gh/gn-math/games/pong/index.html')">
-      <h2>Pong Duel</h2>
-      <p>Old school ping-pong—respect the paddle.</p>
-    </div>
-    <div class="game-card" onclick="loadGame('https://cdn.jsdelivr.net/gh/gn-math/games/maze/index.html')">
-      <h2>Maze Runner</h2>
-      <p>Find the way out before the timer runs dry.</p>
-    </div>
-  </section>
+  <section class="game-grid" id="game-grid"></section>
 
   <section id="game-container" style="padding: 2rem; display: none;">
     <iframe id="game-frame"></iframe>
@@ -169,6 +99,25 @@
   </footer>
 
   <script>
+    const gameGrid = document.getElementById('game-grid');
+
+    fetch('https://cdn.jsdelivr.net/gh/gn-math/assets@main/zones.json')
+      .then(res => res.json())
+      .then(games => {
+        games.forEach(game => {
+          const card = document.createElement('div');
+          card.className = 'game-card';
+          card.innerHTML = `<h2>${game.name}</h2>`;
+          card.onclick = () => loadGame(`https://cdn.jsdelivr.net/gh/gn-math/html@main${game.path}`);
+
+          gameGrid.appendChild(card);
+        });
+      })
+      .catch(err => {
+        console.error('Failed to load game list:', err);
+        gameGrid.innerHTML = '<p style="color: red; text-align: center;">Failed to load games. Please try again later.</p>';
+      });
+
     function loadGame(url) {
       const container = document.getElementById('game-container');
       const iframe = document.getElementById('game-frame');
