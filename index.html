@@ -175,6 +175,7 @@
     const gameFrame = document.getElementById("game-frame");
     const coverURL = "https://cdn.jsdelivr.net/gh/gn-math/assets@main";
     const htmlURL = "https://cdn.jsdelivr.net/gh/gn-math/html@main";
+    const defaultCover = `${coverURL}/default.png`;
     let currentGameUrl = "";
 
     fetch("https://cdn.jsdelivr.net/gh/gn-math/assets@main/zones.json")
@@ -199,7 +200,9 @@
       zones.forEach((file) => {
         if (file.url && file.url.includes("{HTML_URL}")) {
           const actualUrl = file.url.replace("{HTML_URL}", htmlURL);
-          const actualCover = file.cover.replace("{COVER_URL}", coverURL);
+          const actualCover = file.cover
+            ? file.cover.replace("{COVER_URL}", coverURL)
+            : defaultCover;
 
           const zoneItem = document.createElement("div");
           zoneItem.className = "game-card";
@@ -208,6 +211,7 @@
           const img = document.createElement("img");
           img.src = actualCover;
           img.alt = file.name;
+          img.onerror = () => { img.src = defaultCover; };
           zoneItem.appendChild(img);
 
           const button = document.createElement("button");
