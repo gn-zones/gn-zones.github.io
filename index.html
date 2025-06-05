@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cool Math Game Site</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+      font-family: 'Press Start 2P', cursive;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    header {
+      padding: 2rem;
+      text-align: center;
+      background: #121212;
+      animation: slideDown 1s ease-out;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      color: #00ffcc;
+    }
+
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+      animation: fadeIn 2s ease;
+    }
+
+    .game-card {
+      background: #222;
+      padding: 1rem;
+      border: 2px solid #00ffcc;
+      border-radius: 12px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      animation: floatUp 1s ease-out;
+    }
+
+    .game-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 20px rgba(0, 255, 204, 0.5);
+    }
+
+    .game-card h2 {
+      font-size: 1rem;
+      color: #ff00ff;
+      margin-bottom: 0.5rem;
+    }
+
+    .game-card p {
+      font-size: 0.75rem;
+      color: #ccc;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #111;
+      font-size: 0.75rem;
+      animation: slideUp 1s ease-out;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Cool Math Game Central</h1>
+  </header>
+
+  <section class="game-grid">
+    <div class="game-card">
+      <h2>Snake Classic</h2>
+      <p>Slither till you're slick. OG vibes only.</p>
+    </div>
+    <div class="game-card">
+      <h2>Tetris Blitz</h2>
+      <p>Stack 'em high or cry tryin'.</p>
+    </div>
+    <div class="game-card">
+      <h2>Pong Duel</h2>
+      <p>Old school ping-pong—respect the paddle.</p>
+    </div>
+    <div class="game-card">
+      <h2>Maze Runner</h2>
+      <p>Find the way out before the timer runs dry.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>Copyright &copy; 2025 Cool Math Vibes. No homework, just high scores.</p>
+  </footer>
+</body>
+</html>
