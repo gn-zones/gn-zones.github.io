@@ -213,6 +213,42 @@
   </footer>
 
   <script>
+        window.addEventListener('load', function () {
+    // Function to check if the user is on a phone or tablet
+    function isMobileDevice() {
+        return /Mobi|Android|iPad|iPhone|pixel|galaxy/i.test(navigator.userAgent) || window.innerWidth <= 768;
+    }
+
+    // Show a popup if the user is on a phone or tablet
+    if (isMobileDevice()) {
+        const popupOverlay = document.createElement('div');
+        popupOverlay.style.position = 'fixed';
+        popupOverlay.style.top = '0';
+        popupOverlay.style.left = '0';
+        popupOverlay.style.width = '100%';
+        popupOverlay.style.height = '100%';
+        popupOverlay.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+        popupOverlay.style.zIndex = '9999';
+        popupOverlay.style.display = 'flex';
+        popupOverlay.style.alignItems = 'center';
+        popupOverlay.style.justifyContent = 'center';
+        popupOverlay.style.color = 'white';
+        popupOverlay.style.fontSize = '1.5rem';
+        popupOverlay.style.textAlign = 'center';
+
+        const popupMessage = document.createElement('div');
+        popupMessage.innerHTML = `
+            <p>Most games are not supported on this device.</p>
+            <p>Try playing on a PC or a laptop.</p>
+            <p>Not recommended to play on your device.</p>
+            <button style="margin-top: 20px; padding: 10px 20px; font-size: 1rem; cursor: pointer;" onclick="document.body.removeChild(this.parentNode.parentNode)">Close</button>
+        `;
+
+        popupOverlay.appendChild(popupMessage);
+        document.body.appendChild(popupOverlay);
+    }
+});
+
     const gameGrid = document.getElementById("game-grid");
     const gameContainer = document.getElementById("game-container");
     const gameFrame = document.getElementById("game-frame");
