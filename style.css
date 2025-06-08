@@ -1,0 +1,173 @@
+    body {
+      margin: 0;
+      font-family: 'Press Start 2P', cursive;
+      background: #0f0f1f;
+      color: #00ffc3;
+      text-align: center;
+      animation: fadeIn 1s ease-in;
+    }
+
+    header {
+      padding: 1rem;
+      background-color: #1a1a2a;
+      box-shadow: 0 0 10px #00ffc3;
+      animation: slideDown 1s ease-out;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: #00ffc3;
+      text-shadow: 0 0 3px #00ffc3;
+    }
+
+    .search-bar {
+      margin: 1rem;
+    }
+
+    .search-bar input {
+      font-family: 'Press Start 2P', cursive;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: 1px solid #00ffc3;
+      background: #1a1a2a;
+      color: #00ffc3;
+      width: 80%;
+    }
+
+    .game-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      padding: 1rem;
+    }
+
+    .game-card {
+      flex: 0 1 calc(20% - 1rem);
+      background: #1e1e2e;
+      padding: 0.5rem;
+      border-radius: 30px;
+      transition: transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 160px;
+      animation: popIn 0.4s ease;
+    }
+
+    .game-card:hover {
+      transform: scale(1.08);
+      background-color: #2a2a3a;
+      box-shadow: 0 0 15px #00ffc3;
+    }
+
+    .game-card img {
+      display: none;
+    }
+
+    .game-card button {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 1rem;
+      background: none;
+      color: #00ffc3;
+      border: none;
+      padding: 0.4rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    #game-container {
+      display: none;
+      padding: 1rem;
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    #game-container.fadeOut {
+      animation: appleFadeOut 0.4s ease-in forwards;
+    }
+
+    iframe {
+      width: 100%;
+      height: 80vh;
+      border: none;
+      border-radius: 20px;
+    }
+
+    .controls {
+      margin: 0.5rem 0;
+    }
+
+    .controls button {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 1rem;
+      background: #1a1a2a;
+      color: #00ffc3;
+      border: 1px solid #00ffc3;
+      border-radius: 10px;
+      padding: 0.3rem 1rem;
+      margin: 0 0.5rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .controls button:hover {
+      transform: scale(1.1);
+      background-color: #2a2a3a;
+    }
+
+    footer {
+      padding: 1rem;
+      font-size: 0.6rem;
+      background-color: #1a1a2a;
+      color: #00ffc3;
+    }
+
+    .return-button {
+      display: inline-block;
+      margin: 0.5rem;
+      font-size: 0.6rem;
+      background: #1a1a2a;
+      color: #00ffc3;
+      border: 1px solid #00ffc3;
+      border-radius: 10px;
+      padding: 0.4rem 1rem;
+      cursor: pointer;
+      font-family: 'Press Start 2P', cursive;
+      text-decoration: none;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .return-button:hover {
+      transform: scale(1.05);
+      background-color: #2a2a3a;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+
+    @keyframes appleFadeOut {
+      0% { opacity: 1; transform: scale(1); }
+      100% { opacity: 0; transform: scale(0.95) translateY(20px); }
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
