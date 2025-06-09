@@ -77,18 +77,26 @@
             }
         }
 
-        function aboutBlank() {
-            const newWindow = window.open("about:blank", "_blank");
-            let zone = zones.find(zone => zone.id + '' === document.getElementById('zoneId').textContent).url.replace("{COVER_URL}", coverURL).replace("{HTML_URL}", htmlURL);
-            fetch(zone+"?t="+Date.now()).then(response => response.text()).then(html => {
-                if (newWindow) {
-                    newWindow.document.open();
-                    newWindow.document.body.innerHTML = "";
-                    newWindow.document.documentElement.innerHTML = html;
-                    newWindow.document.close();
-                }
-            })
-        }
+function aboutblank(url) {
+    const win = window.open('about:blank', '_blank');
+    if (win) {
+        win.document.write(`
+            <html>
+                <head>
+                    <title>Magma</title>
+                    <style>
+                        html, body { height: 100%; margin: 0; }
+                        iframe { border: none; width: 100vw; height: 100vh; }
+                    </style>
+                </head>
+                <body>
+                    <iframe src="${url}" allowfullscreen></iframe>
+                </body>
+            </html>
+        `);
+        win.document.close();
+    }
+}
 
       zones.forEach((file) => {
         if (file.url && file.url.includes("{HTML_URL}")) {
