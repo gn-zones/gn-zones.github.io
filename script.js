@@ -1,10 +1,8 @@
         window.addEventListener('load', function () {
-    // Function to check if the user is on a phone or tablet
     function isMobileDevice() {
         return /Mobi|Android|iPad|iPhone|pixel|galaxy/i.test(navigator.userAgent) || window.innerWidth <= 768;
     }
 
-    // Show a popup if the user is on a phone or tablet
     if (isMobileDevice()) {
         const popupOverlay = document.createElement('div');
         popupOverlay.style.position = 'fixed';
