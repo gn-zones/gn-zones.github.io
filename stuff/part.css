@@ -1,0 +1,77 @@
+    body {
+      margin: 0;
+      font-family: 'Press Start 2P', cursive;
+      background: #0f0f1f;
+      color: #00ffc3;
+      text-align: center;
+      animation: fadeIn 1s ease-in;
+    }
+
+    header {
+      padding: 1rem;
+      background-color: #1a1a2a;
+      box-shadow: 0 0 10px #00ffc3;
+      animation: slideDown 1s ease-out;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: #00ffc3;
+      text-shadow: 0 0 3px #00ffc3;
+    }
+
+    button {
+      color: #00ffc3;
+      text-decoration: underline;
+      transition: color 0.3s ease;
+      padding: 0.5rem 1.5rem;
+      border: 1px solid transparent;
+      border-radius: 20px;
+      margin-top: 30px;
+      background-color: #0b0b2e;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 1rem;
+      text-align: center;
+      text-shadow: 0 0 3px #00ffc3;
+    }
+    button:hover {
+      color: #ffffff;
+      background-color: #004675;
+      border: 1px solid #00ffc3;
+      rotate: 5deg;
+      transition: all 0.3s ease-in-out;
+    }
+
+    img {
+      width: 20%;
+      height: auto;
+      border-radius: 40px;
+      box-shadow: 0 0 10px #00ffc3;
+      transition: transform 0.3s ease;
+      bottom: 0;
+      left: 0;
+      right: 0;
+
+    }
+    img:hover {
+      transform: scale(1.1);
+    }
+
+    footer {
+      margin-bottom: 1rem;
+      padding: 0.2rem;
+      background-color: #1a1a2a;
+      box-shadow: 0 0 10px #00ffc3;
+      color: #00ffc3;
+      font-size: 1rem;
+      text-align: bottom;
+      animation: slideUp 1s ease-out;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+
