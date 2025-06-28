@@ -1,0 +1,44 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #000000;
+}
+
+    header {
+      padding: 1rem;
+      background-color: #1a1a2a;
+      box-shadow: 0 0 10px #00ffc3;
+      animation: slideDown 1s ease-out;
+    }
+    button {
+      color: #00ffc3;
+      text-decoration: underline;
+      transition: color 0.3s ease;
+      padding: 0.5rem 1.5rem;
+      border: 1px solid transparent;
+      border-radius: 20px;
+      margin-top: 30px;
+      background-color: #0b0b2e;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 1rem;
+      text-align: center;
+      text-shadow: 0 0 3px #00ffc3;
+    }
+    button:hover {
+      color: #ffffff;
+      background-color: #004675;
+      border: 1px solid #00ffc3;
+      rotate: 5deg;
+      transition: all 0.3s ease-in-out;
+    }
+    h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: #00ffc3;
+      text-shadow: 0 0 3px #00ffc3;
+    }
+
+
