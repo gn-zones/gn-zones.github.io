@@ -1,9 +1,9 @@
-body {
-    font-family: Arial, sans-serif;
+    body {
+    font-family: 'Press Start 2P', cursive;
     margin: 0;
     padding: 0;
     background: #000000;
-}
+    }
 
     header {
       padding: 1rem;
@@ -11,14 +11,15 @@ body {
       box-shadow: 0 0 10px #00ffc3;
       animation: slideDown 1s ease-out;
     }
+
     button {
       color: #00ffc3;
       text-decoration: underline;
       transition: color 0.3s ease;
       padding: 0.5rem 1.5rem;
-      border: 1px solid transparent;
+      border: 1px solid #00ffc3;
       border-radius: 20px;
-      margin-top: 30px;
+      margin-top: 0px;
       background-color: #0b0b2e;
       cursor: pointer;
       transition: background-color 0.3s ease;
@@ -27,6 +28,7 @@ body {
       text-align: center;
       text-shadow: 0 0 3px #00ffc3;
     }
+
     button:hover {
       color: #ffffff;
       background-color: #004675;
@@ -34,6 +36,7 @@ body {
       transition: all 0.3s ease-in-out;
       scale: 1.1;
     }
+
     h1 {
       margin: 0;
       font-size: 1.5rem;
@@ -41,4 +44,28 @@ body {
       text-shadow: 0 0 3px #00ffc3;
     }
 
+    footer {
+      padding: 0.6rem;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 0.8rem;
+      background-color: #1a1a2a;
+      color: #00ffc3;
+      text-align: center;
+      text-wrap: normal;
+    }
+    
+    .return-button {
+      display: inline-block;
+      margin: 0.5rem;
+      font-size: 0.6rem;
+      background: #1a1a2a;
+      color: #00ffc3;
+      border: 1px solid #00ffc3;
+      border-radius: 10px;
+      padding: 0.4rem 1rem;
+      cursor: pointer;
+      font-family: 'Press Start 2P', cursive;
+      text-decoration: none;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
 
